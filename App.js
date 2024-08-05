@@ -1,5 +1,13 @@
+import { nanoid } from "nanoid";
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function App() {
   const [goalText, setGoalText] = useState("");
@@ -10,8 +18,13 @@ export default function App() {
   };
 
   const addGoal = () => {
-    setGoals((currentGoals) => [...currentGoals, goalText]);
-    setGoalText("");
+    setGoals((currentGoals) => [
+      ...currentGoals,
+      {
+        text: goalText,
+        // key: Math.random().toString(),
+      },
+    ]);
   };
   return (
     <View style={styles.container}>
@@ -24,9 +37,18 @@ export default function App() {
         <Button title="Add Goal" onPress={addGoal} />
       </View>
       <View style={styles.goalsCont}>
-        {goals.map((goal) => (
-          <Text key={goal}>{goal}</Text>
-        ))}
+        <FlatList
+          data={goals}
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.goalItem}>
+                <Text style={styles.goalText}>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={() => nanoid()}
+          alwaysBounceVertical={false}
+        />
       </View>
     </View>
   );
@@ -56,5 +78,15 @@ const styles = StyleSheet.create({
   },
   goalsCont: {
     flex: 4,
+  },
+  goalItem: {
+    padding: 8,
+    margin: 8,
+    borderColor: "#5e0acc",
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  goalText: {
+    color: "#5e0acc",
   },
 });
