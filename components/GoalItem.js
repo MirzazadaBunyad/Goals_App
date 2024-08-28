@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   goalText: {
-    color: "#5e0acc",
+    color: "#385F7A",
+    padding: 8,
   },
 });

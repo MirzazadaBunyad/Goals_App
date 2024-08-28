@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FlatList, StyleSheet, View } from "react-native";
+import { Button, FlatList, StatusBar, StyleSheet, View } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
@@ -32,33 +32,36 @@ export default function App() {
     });
   };
   return (
-    <View style={styles.container}>
-      <Button
-        title="Add New Goal"
-        onPress={startAddGoalHandler}
-        color="#5e0acc"
-      />
-      <GoalInput
-        visible={modalIsVisible}
-        addGoal={addGoal}
-        onCancel={endAddGoalHandler}
-      />
-      <View style={styles.goalsCont}>
-        <FlatList
-          data={goals}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                text={itemData.item.text}
-                id={itemData.item.id}
-                onDelete={deleteGoal}
-              />
-            );
-          }}
-          alwaysBounceVertical={false}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.container}>
+        <Button
+          title="Add New Goal"
+          onPress={startAddGoalHandler}
+          color="#385F7A"
         />
+        <GoalInput
+          visible={modalIsVisible}
+          addGoal={addGoal}
+          onCancel={endAddGoalHandler}
+        />
+        <View style={styles.goalsCont}>
+          <FlatList
+            data={goals}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  text={itemData.item.text}
+                  id={itemData.item.id}
+                  onDelete={deleteGoal}
+                />
+              );
+            }}
+            alwaysBounceVertical={false}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -67,6 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 16,
+    backgroundColor: "#C1E6EA",
   },
   goalsCont: {
     flex: 4,
